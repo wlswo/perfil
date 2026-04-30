@@ -352,33 +352,55 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
   /* ─── CTA ─── */
   .cta-buttons {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   .store-button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    padding: 14px 24px;
-    background: var(--ink);
-    color: var(--paper) !important;
+    width: 180px;
+    padding: 13px 18px;
+    background: transparent;
+    color: var(--ink) !important;
+    font-size: 15px;
     font-weight: 700;
+    letter-spacing: -0.2px;
     border: 1.5px solid var(--ink);
-    box-shadow: 4px 4px 0 var(--ink);
+    border-radius: 2px;
     transition:
-      transform 0.1s ease,
-      box-shadow 0.1s ease;
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
   }
+  /* 아이콘에만 브릭 액센트 — '조금 섞은' 느낌 */
+  .store-button svg {
+    color: var(--accent);
+    transition: color 0.2s ease;
+  }
+  /* 호버 시 브릭 컬러로 부드럽게 채워짐 */
   .store-button:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--ink);
+    background: var(--accent);
     color: var(--paper) !important;
+    border-color: var(--accent);
   }
+  .store-button:hover svg {
+    color: var(--paper);
+  }
+
   .cta-note {
     font-size: 13px;
     opacity: 0.5;
+  }
+
+  @media (max-width: 420px) {
+    .store-button {
+      width: 100%;
+      max-width: 280px;
+    }
   }
 
   /* ─── Showcase ─── */
