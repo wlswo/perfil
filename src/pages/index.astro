@@ -2,6 +2,39 @@
 import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const showcases = [
+  {
+    id: 'search',
+    title: '원하는 책을 찾아보세요',
+    description:
+      'ISBN 데이터베이스에서 제목, 저자, 출판사로 검색해 내 책장에 담을 수 있어요. 직접 입력하지 않아도 표지와 정보가 자동으로 채워집니다.',
+  },
+  {
+    id: 'ticket',
+    title: '완독은 곧 한 장의 티켓',
+    description:
+      '책을 끝까지 읽으면 그 순간을 기념할 빈티지 티켓이 발급돼요. 별점, 메모, 읽은 기간이 함께 새겨집니다.',
+  },
+  {
+    id: 'rating',
+    title: '내 마음을 단정하게 남기는 곳',
+    description:
+      '별점은 눈금으로, 감상은 짧은 메모로. 가볍지만 진심이 담기는 기록 방식입니다.',
+  },
+  {
+    id: 'card',
+    title: '한 장의 카드로 공유',
+    description:
+      '내가 읽은 책을 한 장의 독서 카드로 만들어 갤러리에 저장하고 친구들과 공유할 수 있어요.',
+  },
+  {
+    id: 'folder',
+    title: '내 책장은 내 마음대로',
+    description:
+      '장르별, 시리즈별, 분위기별 — 폴더로 묶어 나만의 방식대로 책장을 정리해보세요.',
+  },
+];
 ---
 
 <Layout
@@ -9,21 +42,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   description="읽은 책이 차곡차곡 쌓이는 따뜻한 독서 기록 앱"
 >
   <section class="hero">
-    <button
-      type="button"
-      class="mascot-button"
-      id="mascot"
-      aria-label="퍼필 마스코트 — 클릭하면 한 바퀴 돕니다"
-    >
+    <div class="mascot-wrap" aria-hidden="true">
       <img
         src={`${base}/perfil_mascot.png`}
-        alt="퍼필 마스코트"
+        alt=""
         class="mascot"
         width="180"
         height="158"
         draggable="false"
       />
-    </button>
+    </div>
 
     <h1>읽은 책이<br />차곡차곡 쌓이는 곳</h1>
     <p class="subtitle">
@@ -47,7 +75,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <p class="cta-note">곧 출시 예정</p>
   </section>
 
-  <section class="features">
+  <section class="features reveal">
     <h2>주요 기능</h2>
     <ul class="feature-list">
       <li>
@@ -97,7 +125,128 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </ul>
   </section>
 
-  <section class="legal-links">
+  <section class="showcase-section">
+    {showcases.map((s, idx) => (
+      <article class={`showcase reveal ${idx % 2 === 1 ? 'showcase--reverse' : ''}`}>
+        <div class="showcase-mockup">
+          {s.id === 'search' && (
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="mock-tab-row"><span>홈</span><span>독서</span><span class="mock-tab-active">검색</span></div>
+                <div class="mock-search">데미안</div>
+                <div class="mock-book">
+                  <div class="mock-cover" style="background:linear-gradient(135deg,#9bb5d6,#5d7ea6);"></div>
+                  <div class="mock-meta"><strong>데미안</strong><span>헤르만 헤세 · 민음사</span></div>
+                </div>
+                <div class="mock-book">
+                  <div class="mock-cover" style="background:linear-gradient(135deg,#d6c4a3,#a48d6c);"></div>
+                  <div class="mock-meta"><strong>달과 6펜스</strong><span>서머싯 몸 · 민음사</span></div>
+                </div>
+                <div class="mock-book">
+                  <div class="mock-cover" style="background:linear-gradient(135deg,#c5a0a0,#8a5e5e);"></div>
+                  <div class="mock-meta"><strong>젊은 베르테르의 슬픔</strong><span>괴테</span></div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {s.id === 'ticket' && (
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="mock-ticket">
+                  <div class="mock-ticket-top">
+                    <div class="mock-ticket-row"><span>NO.</span><span>0023</span></div>
+                    <div class="mock-ticket-row"><span>DATE</span><span>2026.05.01</span></div>
+                  </div>
+                  <div class="mock-ticket-perforation"></div>
+                  <div class="mock-ticket-mid">
+                    <div class="mock-ticket-title">데미안</div>
+                    <div class="mock-ticket-author">헤르만 헤세</div>
+                    <div class="mock-ticket-stars">★★★★★</div>
+                  </div>
+                  <div class="mock-ticket-perforation"></div>
+                  <div class="mock-ticket-bottom">PERFIL · ADMIT ONE</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {s.id === 'rating' && (
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="mock-detail-title">데미안 · 별점</div>
+                <div class="mock-stars-large">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span class="dim">★</span>
+                </div>
+                <div class="mock-detail-label">메모</div>
+                <div class="mock-memo">
+                  데미안과 싱클레어의 대화는 늘 마음을 흔든다. 알을 깨고 나오는 새의 이미지가 오래 남는다.
+                </div>
+              </div>
+            </div>
+          )}
+
+          {s.id === 'card' && (
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="mock-card">
+                  <div class="mock-card-cover" style="background:linear-gradient(135deg,#9bb5d6,#5d7ea6);"></div>
+                  <div class="mock-card-quote">
+                    "새는 알을 깨고 나온다.<br/>알은 세계다."
+                  </div>
+                  <div class="mock-card-bottom">
+                    <span>데미안</span>
+                    <span>★ 4.5</span>
+                  </div>
+                  <div class="mock-card-brand">perfil</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {s.id === 'folder' && (
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <div class="mock-folder-row">
+                  <div class="mock-folder">
+                    <div class="mock-folder-tab"></div>
+                    <div class="mock-folder-body">소설</div>
+                  </div>
+                  <div class="mock-folder">
+                    <div class="mock-folder-tab"></div>
+                    <div class="mock-folder-body">에세이</div>
+                  </div>
+                </div>
+                <div class="mock-folder-row">
+                  <div class="mock-folder">
+                    <div class="mock-folder-tab"></div>
+                    <div class="mock-folder-body">고전</div>
+                  </div>
+                  <div class="mock-folder">
+                    <div class="mock-folder-tab"></div>
+                    <div class="mock-folder-body">SF</div>
+                  </div>
+                </div>
+                <div class="mock-grid">
+                  <div class="mock-mini-cover" style="background:#9bb5d6;"></div>
+                  <div class="mock-mini-cover" style="background:#d6c4a3;"></div>
+                  <div class="mock-mini-cover" style="background:#c5a0a0;"></div>
+                  <div class="mock-mini-cover" style="background:#a8b89a;"></div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div class="showcase-text">
+          <h3>{s.title}</h3>
+          <p>{s.description}</p>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="legal-links reveal">
     <h2>법적 고지</h2>
     <ul class="legal-list">
       <li>
@@ -121,16 +270,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </Layout>
 
 <script>
-  const mascotButton = document.getElementById('mascot');
-  const mascotImg = mascotButton?.querySelector('img');
-  if (mascotButton && mascotImg) {
-    mascotButton.addEventListener('click', () => {
-      if (mascotImg.classList.contains('spin')) return;
-      mascotImg.classList.add('spin');
-    });
-    mascotImg.addEventListener('animationend', (e) => {
-      if (e.animationName === 'spin') mascotImg.classList.remove('spin');
-    });
+  // 스크롤 진입 시 .reveal 요소들을 보이게
+  const supportsIO = 'IntersectionObserver' in window;
+  const els = document.querySelectorAll<HTMLElement>('.reveal');
+
+  if (!supportsIO) {
+    els.forEach((el) => el.classList.add('visible'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+    );
+    els.forEach((el) => io.observe(el));
   }
 </script>
 
@@ -141,66 +299,37 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     padding: 24px 0 56px;
   }
 
-  /* ─── Mascot ─── */
-  .mascot-button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
+  /* ─── Mascot (idle bob + hover wiggle, 클릭 효과 없음) ─── */
+  .mascot-wrap {
     margin: 0 auto 12px;
-    display: block;
-    outline: none;
+    display: flex;
+    justify-content: center;
   }
-  .mascot-button:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 8px;
-    border-radius: 999px;
-  }
-
   .mascot {
     display: block;
     width: 180px;
     height: auto;
     transform-origin: 50% 90%;
     animation: bob 4s ease-in-out infinite;
-    transition: transform 0.25s ease;
     -webkit-user-select: none;
     user-select: none;
-    pointer-events: none;
   }
-
-  /* 마우스 hover 시 활기차게 흔들기 */
-  .mascot-button:hover .mascot {
+  .mascot-wrap:hover .mascot {
     animation: wiggle 0.6s ease-in-out infinite;
-  }
-
-  /* 클릭하면 한 바퀴 회전 (다른 애니메이션보다 우선 적용) */
-  .mascot-button .mascot.spin,
-  .mascot-button:hover .mascot.spin {
-    animation: spin 0.8s cubic-bezier(0.5, 0, 0.4, 1) 1;
   }
 
   @keyframes bob {
     0%, 100% { transform: translateY(0) rotate(-2deg); }
     50% { transform: translateY(-6px) rotate(2deg); }
   }
-
   @keyframes wiggle {
     0%, 100% { transform: rotate(-8deg); }
     50% { transform: rotate(8deg); }
   }
 
-  @keyframes spin {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.1); }
-    100% { transform: rotate(360deg) scale(1); }
-  }
-
-  /* 모션 줄이기 설정 존중 */
   @media (prefers-reduced-motion: reduce) {
     .mascot,
-    .mascot-button:hover .mascot,
-    .mascot-button .mascot.spin {
+    .mascot-wrap:hover .mascot {
       animation: none;
     }
   }
@@ -244,15 +373,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     box-shadow: 2px 2px 0 var(--ink);
     color: var(--paper) !important;
   }
-  .store-button svg {
-    flex-shrink: 0;
-  }
   .cta-note {
     font-size: 13px;
     opacity: 0.5;
   }
 
-  /* ─── Features ─── */
+  /* ─── Compact Features ─── */
   .features {
     margin-top: 56px;
     padding: 28px 32px;
@@ -289,23 +415,309 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     border: 1.2px solid rgba(62, 58, 55, 0.7);
     background: var(--paper);
     color: var(--ink);
-    transition:
-      transform 0.2s ease,
-      background 0.2s ease,
-      color 0.2s ease;
-  }
-  .feature-list li:hover .feature-icon {
-    background: var(--ink);
-    color: var(--paper);
-    transform: rotate(-4deg) scale(1.05);
   }
   .feature-text {
     flex: 1;
   }
 
+  /* ─── Showcase Section ─── */
+  .showcase-section {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+  }
+  .showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .showcase--reverse {
+    direction: rtl;
+  }
+  .showcase--reverse > * {
+    direction: ltr;
+  }
+
+  .showcase-mockup {
+    display: flex;
+    justify-content: center;
+  }
+  .showcase-text h3 {
+    font-size: 24px;
+    margin-bottom: 14px;
+    line-height: 1.35;
+    letter-spacing: -0.6px;
+  }
+  .showcase-text p {
+    font-size: 16px;
+    opacity: 0.78;
+    line-height: 1.75;
+  }
+
+  /* ─── Phone frame ─── */
+  .phone-frame {
+    width: 240px;
+    aspect-ratio: 9 / 19;
+    background: var(--ink);
+    border-radius: 32px;
+    padding: 10px;
+    box-shadow:
+      8px 8px 0 var(--ink),
+      0 18px 40px rgba(62, 58, 55, 0.15);
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--paper);
+    border-radius: 22px;
+    padding: 16px 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 11px;
+    color: var(--ink);
+  }
+
+  /* ─── Mockup: Search ─── */
+  .mock-tab-row {
+    display: flex;
+    gap: 10px;
+    font-size: 10px;
+    opacity: 0.55;
+    border-bottom: 1px solid rgba(62, 58, 55, 0.15);
+    padding-bottom: 6px;
+  }
+  .mock-tab-active {
+    opacity: 1;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .mock-search {
+    background: #fff;
+    border: 1px solid var(--ink);
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+  .mock-book {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(62, 58, 55, 0.1);
+  }
+  .mock-cover {
+    width: 30px;
+    height: 42px;
+    flex-shrink: 0;
+  }
+  .mock-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mock-meta strong {
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .mock-meta span {
+    font-size: 9px;
+    opacity: 0.6;
+  }
+
+  /* ─── Mockup: Ticket ─── */
+  .mock-ticket {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    padding: 14px 12px;
+    margin-top: 8px;
+    font-family: 'Courier New', monospace;
+  }
+  .mock-ticket-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .mock-ticket-perforation {
+    border-top: 1.5px dashed var(--ink);
+    margin: 10px -12px;
+  }
+  .mock-ticket-mid {
+    text-align: center;
+    padding: 6px 0;
+  }
+  .mock-ticket-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-family: inherit;
+  }
+  .mock-ticket-author {
+    font-size: 10px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+  }
+  .mock-ticket-stars {
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .mock-ticket-bottom {
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 2px;
+    opacity: 0.7;
+  }
+
+  /* ─── Mockup: Rating ─── */
+  .mock-detail-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
+  .mock-stars-large {
+    display: flex;
+    gap: 6px;
+    font-size: 26px;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .mock-stars-large .dim {
+    color: rgba(62, 58, 55, 0.2);
+  }
+  .mock-detail-label {
+    font-size: 10px;
+    font-weight: 700;
+    opacity: 0.55;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .mock-memo {
+    background: #fff;
+    border: 1px solid var(--ink);
+    padding: 10px;
+    font-size: 11px;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  /* ─── Mockup: Card ─── */
+  .mock-card {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    padding: 14px;
+    margin-top: 14px;
+    box-shadow: 4px 4px 0 var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+  .mock-card-cover {
+    width: 100%;
+    height: 90px;
+  }
+  .mock-card-quote {
+    font-size: 11px;
+    line-height: 1.5;
+    text-align: center;
+    font-style: italic;
+    opacity: 0.85;
+  }
+  .mock-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    border-top: 1px solid rgba(62, 58, 55, 0.2);
+    padding-top: 8px;
+  }
+  .mock-card-brand {
+    text-align: right;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent);
+  }
+
+  /* ─── Mockup: Folder ─── */
+  .mock-folder-row {
+    display: flex;
+    gap: 8px;
+  }
+  .mock-folder {
+    flex: 1;
+  }
+  .mock-folder-tab {
+    width: 40%;
+    height: 8px;
+    background: var(--paper-dim);
+    border: 1px solid var(--ink);
+    border-bottom: none;
+  }
+  .mock-folder-body {
+    background: #fff;
+    border: 1px solid var(--ink);
+    padding: 10px 8px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .mock-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .mock-mini-cover {
+    aspect-ratio: 2 / 3;
+  }
+
+  /* ─── Reveal animation ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* showcase 내부에서 mockup과 text를 살짝 시차 두기 */
+  .showcase.reveal .showcase-mockup {
+    transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.1s;
+    transform: translateY(20px);
+  }
+  .showcase.reveal.visible .showcase-mockup {
+    transform: translateY(0);
+  }
+  .showcase.reveal .showcase-text {
+    transition: opacity 0.7s ease 0.25s;
+    opacity: 0;
+  }
+  .showcase.reveal.visible .showcase-text {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .showcase.reveal .showcase-mockup,
+    .showcase.reveal .showcase-text {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   /* ─── Legal links ─── */
   .legal-links {
-    margin-top: 48px;
+    margin-top: 80px;
   }
   .legal-links h2 {
     font-size: 18px;
@@ -327,7 +739,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     padding: 10px 0;
     font-size: 15px;
     border-bottom: 1px solid rgba(62, 58, 55, 0.3);
-    transition: gap 0.2s ease, color 0.2s ease;
+    transition:
+      gap 0.2s ease,
+      color 0.2s ease;
   }
   .legal-list a:hover {
     gap: 14px;
@@ -335,6 +749,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   /* ─── Responsive ─── */
+  @media (max-width: 720px) {
+    .showcase {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .showcase--reverse {
+      direction: ltr;
+    }
+    .phone-frame {
+      width: 220px;
+    }
+    .showcase-section {
+      gap: 70px;
+      margin-top: 60px;
+    }
+    .showcase-text h3 {
+      font-size: 21px;
+      text-align: center;
+    }
+    .showcase-text p {
+      font-size: 15px;
+      text-align: center;
+    }
+  }
+
   @media (max-width: 600px) {
     .mascot {
       width: 150px;
