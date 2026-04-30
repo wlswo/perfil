@@ -125,10 +125,11 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
 
   <section class="friends-section reveal">
     <div class="friends-header">
-      <h2>40명의 친구들이 함께해요</h2>
+      <span class="coming-soon-badge">COMING SOON</span>
+      <h2>곧 만날 40명의 친구들</h2>
       <p>
-        책 카테고리에 따라 서로 다른 친구가 완독 티켓의 주인공이 됩니다.
-        <br />어떤 친구가 내 티켓에 등장할지 기대해보세요.
+        다가올 업데이트와 함께 등장합니다. 책을 읽으며 한 명씩 컬렉션할 수 있어요.
+        <br />어떤 친구가 내 티켓에 등장할지 기대해주세요.
       </p>
     </div>
 
@@ -143,7 +144,6 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
               width="72"
               height="72"
             />
-            <span class="friend-label">{f.label}</span>
           </div>
         ))}
       </div>
@@ -160,7 +160,6 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
               width="72"
               height="72"
             />
-            <span class="friend-label">{f.label}</span>
           </div>
         ))}
       </div>
@@ -685,6 +684,18 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
     padding: 0 24px;
     margin-bottom: 36px;
   }
+  .coming-soon-badge {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    background: var(--paper);
+    padding: 5px 12px;
+    border: 1.2px solid var(--accent);
+    margin-bottom: 14px;
+  }
   .friends-header h2 {
     font-size: 24px;
     margin-bottom: 12px;
@@ -712,10 +723,10 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
       #000 90%,
       transparent
     );
-    padding: 20px 0 24px;
+    padding: 12px 0;
   }
   .marquee + .marquee {
-    margin-top: 0;
+    margin-top: 4px;
   }
 
   .marquee-track {
@@ -729,11 +740,6 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
   }
   .marquee-track--right {
     animation: marquee-right 65s linear infinite;
-  }
-
-  /* hover 시 이 라인의 마퀴만 일시 정지 */
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
   }
 
   @keyframes marquee-left {
@@ -758,44 +764,18 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
   .friend {
     flex-shrink: 0;
     width: 84px;
-    height: 110px;
+    height: 84px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    cursor: pointer;
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    justify-content: center;
+    pointer-events: none;
   }
   .friend img {
     width: 72px;
     height: 72px;
     object-fit: contain;
-    transition: transform 0.25s ease;
-  }
-  .friend-label {
-    font-size: 12px;
-    font-weight: 700;
-    margin-top: 12px;
-    opacity: 0;
-    transform: translateY(-2px);
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease;
-    color: var(--accent);
-    background: var(--paper);
-    padding: 2px 8px;
-    border: 1px solid var(--ink);
-    white-space: nowrap;
-  }
-  .friend:hover {
-    transform: translateY(-6px);
-  }
-  .friend:hover img {
-    transform: scale(1.15) rotate(-6deg);
-  }
-  .friend:hover .friend-label {
-    opacity: 1;
-    transform: translateY(4px);
+    filter: blur(6px) grayscale(0.4);
+    opacity: 0.85;
   }
 
   .friends-counter {
@@ -865,7 +845,7 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
     }
     .friend {
       width: 72px;
-      height: 96px;
+      height: 72px;
     }
     .friend img {
       width: 60px;
