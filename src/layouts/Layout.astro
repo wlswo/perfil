@@ -24,7 +24,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <link rel="icon" type="image/png" href={`${base}/perfil_mascot.png`} />
+    <link rel="apple-touch-icon" href={`${base}/perfil_mascot.png`} />
     <title>{title}</title>
   </head>
   <body>
@@ -47,12 +48,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </main>
 
     <footer class="site-footer">
-      <div class="links">
-        <a href={`${base}/`}>홈</a>
-        <a href={`${base}/terms`}>이용약관</a>
-        <a href={`${base}/privacy`}>개인정보처리방침</a>
+      <div class="footer-inner">
+        <a href={`${base}/`} class="footer-brand">
+          <img
+            src={`${base}/characters/essay_icon.webp`}
+            alt=""
+            width="28"
+            height="28"
+            aria-hidden="true"
+          />
+          <span>Per<span class="accent">Fil</span></span>
+        </a>
+
+        <nav class="footer-links" aria-label="법적 고지 및 사이트 링크">
+          <a href={`${base}/`}>홈</a>
+          <a href={`${base}/terms`}>이용약관</a>
+          <a href={`${base}/privacy`}>개인정보 처리방침</a>
+        </nav>
+
+        <div class="footer-tagline">읽은 책을 마음에 담아두는, 나만의 독서 컬렉션 앱.</div>
+        <div class="copyright">© 2026 퍼필 (PerFil). All rights reserved.</div>
       </div>
-      <div class="copyright">© 2025 퍼필 (PerFil). All rights reserved.</div>
     </footer>
 
     <style is:global>
@@ -200,20 +216,67 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       /* ─── 사이트 푸터 ─── */
       .site-footer {
-        padding: 28px 24px;
+        padding: 56px 24px 48px;
         border-top: 1px solid rgba(62, 58, 55, 0.15);
-        font-size: 13px;
-        opacity: 0.7;
+        background: rgba(62, 58, 55, 0.04);
+        margin-top: 80px;
+      }
+      .footer-inner {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
         text-align: center;
       }
-      .site-footer .links {
-        display: flex;
-        gap: 18px;
-        justify-content: center;
-        margin-bottom: 8px;
+      .footer-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: var(--ink);
+        margin-bottom: 4px;
       }
-      .site-footer .copyright {
-        opacity: 0.7;
+      .footer-brand img {
+        object-fit: contain;
+      }
+      .footer-brand .accent {
+        color: var(--accent);
+      }
+      .footer-links {
+        display: flex;
+        gap: 22px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .footer-links a {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 6px 4px;
+        border-bottom: 1px solid transparent;
+        transition:
+          color 0.18s ease,
+          border-color 0.18s ease;
+      }
+      .footer-links a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+      .footer-tagline {
+        font-size: 14px;
+        opacity: 0.6;
+        line-height: 1.6;
+        max-width: 360px;
+        margin-top: 6px;
+      }
+      .copyright {
+        font-size: 12px;
+        opacity: 0.5;
+        letter-spacing: 0.3px;
+        margin-top: 4px;
       }
 
       @media (max-width: 600px) {

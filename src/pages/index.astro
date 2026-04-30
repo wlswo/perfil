@@ -101,9 +101,9 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
       />
     </div>
 
-    <h1>읽은 책이<br />차곡차곡 쌓이는 곳</h1>
+    <h1>책 한 권이<br />한 장의 기록이 되는 곳</h1>
     <p class="subtitle">
-      퍼필은 나만의 독서 컬렉션을 만드는 따뜻한 기록 앱입니다.
+      읽은 책을 가만히 마음에 담아두는,<br />나만의 독서 컬렉션 앱.
     </p>
 
     <div class="cta-buttons">
@@ -121,6 +121,55 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
       </a>
     </div>
     <p class="cta-note">곧 출시 예정</p>
+  </section>
+
+  <section class="friends-section reveal">
+    <div class="friends-header">
+      <h2>40명의 친구들이 함께해요</h2>
+      <p>
+        책 카테고리에 따라 서로 다른 친구가 완독 티켓의 주인공이 됩니다.
+        <br />어떤 친구가 내 티켓에 등장할지 기대해보세요.
+      </p>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track marquee-track--left">
+        {[...friendsRowA, ...friendsRowA].map((f) => (
+          <div class="friend">
+            <img
+              src={`${base}/characters/${f.file}`}
+              alt=""
+              loading="lazy"
+              width="72"
+              height="72"
+            />
+            <span class="friend-label">{f.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track marquee-track--right">
+        {[...friendsRowB, ...friendsRowB].map((f) => (
+          <div class="friend">
+            <img
+              src={`${base}/characters/${f.file}`}
+              alt=""
+              loading="lazy"
+              width="72"
+              height="72"
+            />
+            <span class="friend-label">{f.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="friends-counter">
+      <span class="counter-num">40</span>
+      <span class="counter-text">CHARACTERS</span>
+    </div>
   </section>
 
   <section class="showcase-section">
@@ -224,76 +273,6 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
     ))}
   </section>
 
-  <section class="friends-section reveal">
-    <div class="friends-header">
-      <h2>40명의 친구들이 함께해요</h2>
-      <p>
-        책 카테고리에 따라 서로 다른 친구가 완독 티켓의 주인공이 됩니다.
-        <br />어떤 친구가 내 티켓에 등장할지 기대해보세요.
-      </p>
-    </div>
-
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track marquee-track--left">
-        {[...friendsRowA, ...friendsRowA].map((f) => (
-          <div class="friend">
-            <img
-              src={`${base}/characters/${f.file}`}
-              alt=""
-              loading="lazy"
-              width="72"
-              height="72"
-            />
-            <span class="friend-label">{f.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track marquee-track--right">
-        {[...friendsRowB, ...friendsRowB].map((f) => (
-          <div class="friend">
-            <img
-              src={`${base}/characters/${f.file}`}
-              alt=""
-              loading="lazy"
-              width="72"
-              height="72"
-            />
-            <span class="friend-label">{f.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="friends-counter">
-      <span class="counter-num">40</span>
-      <span class="counter-text">CHARACTERS</span>
-    </div>
-  </section>
-
-  <section class="legal-links reveal">
-    <h2>법적 고지</h2>
-    <ul class="legal-list">
-      <li>
-        <a href={`${base}/terms`}>
-          <span>서비스 이용약관</span>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </a>
-      </li>
-      <li>
-        <a href={`${base}/privacy`}>
-          <span>개인정보 처리방침</span>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </a>
-      </li>
-    </ul>
-  </section>
 </Layout>
 
 <script>
@@ -690,9 +669,9 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
 
   /* ─── Friends section ─── */
   .friends-section {
-    margin-top: 100px;
-    margin-bottom: 24px;
-    padding: 48px 0;
+    margin-top: 40px;
+    margin-bottom: 0;
+    padding: 56px 0 48px;
     /* main의 max-width 무시하고 좌우 끝까지 */
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
@@ -733,10 +712,10 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
       #000 90%,
       transparent
     );
-    padding: 8px 0;
+    padding: 20px 0 24px;
   }
   .marquee + .marquee {
-    margin-top: 4px;
+    margin-top: 0;
   }
 
   .marquee-track {
@@ -796,9 +775,9 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
   .friend-label {
     font-size: 12px;
     font-weight: 700;
-    margin-top: 4px;
+    margin-top: 12px;
     opacity: 0;
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     transition:
       opacity 0.2s ease,
       transform 0.2s ease;
@@ -816,7 +795,7 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
   }
   .friend:hover .friend-label {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(4px);
   }
 
   .friends-counter {
@@ -836,39 +815,6 @@ const friendsRowB = friends.filter((_, i) => i % 2 === 1);
     letter-spacing: 4px;
     opacity: 0.55;
     margin-top: -2px;
-  }
-
-  /* ─── Legal ─── */
-  .legal-links {
-    margin-top: 80px;
-  }
-  .legal-links h2 {
-    font-size: 18px;
-    margin-bottom: 14px;
-    opacity: 0.65;
-  }
-  .legal-list {
-    list-style: none;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  .legal-list li {
-    padding: 4px 0;
-  }
-  .legal-list a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 0;
-    font-size: 15px;
-    border-bottom: 1px solid rgba(62, 58, 55, 0.3);
-    transition:
-      gap 0.2s ease,
-      color 0.2s ease;
-  }
-  .legal-list a:hover {
-    gap: 14px;
-    color: var(--accent);
   }
 
   /* ─── Responsive ─── */
