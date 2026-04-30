@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout
+  title="퍼필 — 나만의 독서 컬렉션"
+  description="읽은 책이 차곡차곡 쌓이는 따뜻한 독서 기록 앱"
+>
+  <section class="hero">
+    <h1>읽은 책이<br />차곡차곡 쌓이는 곳</h1>
+    <p class="subtitle">
+      퍼필은 나만의 독서 컬렉션을 만드는 따뜻한 기록 앱입니다.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="#" class="store-button" aria-label="App Store에서 다운로드">
+        App Store
+      </a>
+      <a href="#" class="store-button" aria-label="Google Play에서 다운로드">
+        Google Play
+      </a>
+    </div>
+    <p class="cta-note">곧 출시 예정</p>
+  </section>
+
+  <section class="features">
+    <h2>주요 기능</h2>
+    <ul class="feature-list">
+      <li><span class="emoji">📚</span> 도서 검색과 책장 관리</li>
+      <li><span class="emoji">🎫</span> 완독 시 발급되는 나만의 티켓</li>
+      <li><span class="emoji">✍️</span> 별점과 짧은 메모로 남기는 기록</li>
+      <li><span class="emoji">🖼</span> 갤러리에 저장하는 독서 카드</li>
+      <li><span class="emoji">📂</span> 폴더로 정리하는 나만의 책장</li>
+    </ul>
+  </section>
+
+  <section class="legal-links">
+    <h2>법적 고지</h2>
+    <ul class="legal-list">
+      <li><a href={`${base}/terms`}>서비스 이용약관 →</a></li>
+      <li><a href={`${base}/privacy`}>개인정보 처리방침 →</a></li>
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 32px 0 56px;
+  }
+  .hero h1 {
+    font-size: 44px;
+    margin-bottom: 18px;
+    letter-spacing: -1.2px;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    opacity: 0.7;
+    margin-bottom: 36px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .store-button {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--ink);
+    color: var(--paper) !important;
+    font-weight: 700;
+    border: 1.5px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease;
+  }
+  .store-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+    color: var(--paper) !important;
+  }
+  .cta-note {
+    font-size: 13px;
+    opacity: 0.5;
+  }
+
+  .features {
+    margin-top: 56px;
+    padding: 28px 32px;
+    border: 1.5px solid var(--ink);
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .features h2 {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+  .feature-list {
+    list-style: none;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .feature-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(62, 58, 55, 0.12);
+    font-size: 16px;
+  }
+  .feature-list li:last-child {
+    border-bottom: none;
+  }
+  .feature-list .emoji {
+    display: inline-block;
+    width: 28px;
+    margin-right: 8px;
+  }
+
+  .legal-links {
+    margin-top: 48px;
+  }
+  .legal-links h2 {
+    font-size: 18px;
+    margin-bottom: 14px;
+    opacity: 0.65;
+  }
+  .legal-list {
+    list-style: none;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .legal-list li {
+    padding: 10px 0;
+    font-size: 15px;
+  }
+  .legal-list a {
+    border-bottom: 1px solid rgba(62, 58, 55, 0.3);
+    padding-bottom: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 {
+      font-size: 32px;
+    }
+    .hero .subtitle {
+      font-size: 16px;
+    }
+    .features {
+      padding: 24px 22px;
+    }
+  }
+</style>
