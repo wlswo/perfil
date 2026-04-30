@@ -29,7 +29,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </head>
   <body>
     <header class="site-header">
-      <a href={`${base}/`} class="logo">Per<span class="accent">Fil</span></a>
+      <a href={`${base}/`} class="logo">
+        <img
+          src={`${base}/characters/essay_icon.webp`}
+          alt=""
+          class="logo-character"
+          width="32"
+          height="32"
+          aria-hidden="true"
+        />
+        <span class="logo-text">Per<span class="accent">Fil</span></span>
+      </a>
     </header>
 
     <main>
@@ -103,13 +113,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       /* ─── 사이트 헤더 ─── */
       .site-header {
-        padding: 22px 32px;
+        padding: 18px 32px;
         border-bottom: 1px solid rgba(62, 58, 55, 0.15);
       }
       .site-header .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
         font-size: 22px;
         font-weight: 800;
         letter-spacing: -0.5px;
+      }
+      .site-header .logo-character {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .site-header .logo:hover .logo-character {
+        transform: rotate(-12deg) scale(1.12);
       }
       .site-header .logo .accent {
         color: var(--accent);
