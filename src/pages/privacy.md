@@ -68,7 +68,7 @@ description: 퍼필(PerFil) 개인정보 처리방침
 
 | 수탁자 | 위탁 업무 |
 |---|---|
-| Amazon Web Services, Inc. (AWS) | 서비스 인프라 운영 및 데이터 저장 |
+| Oracle Corporation (Oracle Cloud Infrastructure) | 서비스 인프라 운영 및 데이터 저장<br>데이터 저장 위치: 대한민국 (춘천 리전) |
 | Google LLC (Google AdMob) | 앱 내 배너 광고 게재 및 광고 효과 측정<br>처리 항목: 광고 식별자(IDFA/AAID), 기기 정보, 대략적 위치(국가/지역 단위) |
 | Google LLC (Google Sign-In) | 구글 소셜 로그인 인증 처리 |
 | Kakao Corp. | 카카오 소셜 로그인 인증 처리 |
