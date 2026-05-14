@@ -107,12 +107,23 @@ const TOTAL = friends.length;
 const friendsRowA = friends.filter((_, i) => i % 2 === 0);
 const friendsRowB = friends.filter((_, i) => i % 2 === 1);
 
-// hero 의 떠다니는 작은 캐릭터 — 손꼽히는 인기 친구들
+// hero 의 떠다니는 작은 캐릭터 — 8종이 아래에서 위로 천천히 떠올라 사라지고, 다시 아래에서 등장.
+// duration: 위→아래 한 사이클(이전보다 20% 빠름). delay 음수면 첫 로드부터 진행 중.
+// spin: 캐릭터 자체가 회전하는 한 바퀴 시간. 캐릭터마다 다른 속도로 빙글빙글.
+// 가로 위치는 4~92% 까지 약 10% 간격으로 균일 분포 (10종 × 10% = 전 영역).
+// 인접 캐릭터끼리 delay 차이가 크게 — 같은 높이에서 클러스터링 안 되도록.
+// duration 은 이전 대비 15% 더 빠름.
 const heroFloaters = [
-  { file: 'starfish.png', x: '6%',  y: '10%', delay: '0s',   size: 56 },
-  { file: 'whale.png',    x: '88%', y: '14%', delay: '0.4s', size: 64 },
-  { file: 'sprout.png',   x: '2%',  y: '74%', delay: '0.8s', size: 52 },
-  { file: 'rabbit.png',   x: '92%', y: '78%', delay: '1.2s', size: 60 },
+  { file: 'starfish.png', left: '4%',  size: 52, duration: 16, delay: -2,  travel: 820, spin: 6 },
+  { file: 'crab.png',     left: '14%', size: 54, duration: 17, delay: -14, travel: 830, spin: 7 },
+  { file: 'whale.png',    left: '24%', size: 60, duration: 20, delay: -6,  travel: 880, spin: 9 },
+  { file: 'sprout.png',   left: '34%', size: 48, duration: 18, delay: -18, travel: 800, spin: 5 },
+  { file: 'owl.png',      left: '44%', size: 58, duration: 19, delay: -10, travel: 870, spin: 6 },
+  { file: 'hedgehog.png', left: '54%', size: 50, duration: 20, delay: -22, travel: 840, spin: 5 },
+  { file: 'flask.png',    left: '64%', size: 46, duration: 15, delay: -4,  travel: 790, spin: 4 },
+  { file: 'rabbit.png',   left: '74%', size: 56, duration: 22, delay: -16, travel: 860, spin: 7 },
+  { file: 'candle.png',   left: '84%', size: 48, duration: 21, delay: -8,  travel: 810, spin: 8 },
+  { file: 'mushroom.png', left: '92%', size: 50, duration: 17, delay: -20, travel: 820, spin: 8 },
 ];
 ---
 
@@ -122,16 +133,22 @@ const heroFloaters = [
 >
   <section class="hero">
     {heroFloaters.map((f) => (
-      <img
-        src={`${base}/characters/${f.file}`}
-        alt=""
-        class="hero-floater"
-        width={f.size}
-        height={f.size}
-        style={`left:${f.x};top:${f.y};animation-delay:${f.delay};`}
+      <div
+        class="hero-floater-wrap"
+        style={`left:${f.left};animation-duration:${f.duration}s;animation-delay:${f.delay}s;--travel:${f.travel}px;`}
         aria-hidden="true"
-        draggable="false"
-      />
+      >
+        {/* 떠오르는 동작은 wrap 이, 빙글빙글 회전은 img 가 따로 — transform 충돌 방지 */}
+        <img
+          src={`${base}/characters/${f.file}`}
+          alt=""
+          class="hero-floater"
+          width={f.size}
+          height={f.size}
+          style={`width:${f.size}px;height:${f.size}px;animation-duration:${f.spin}s;`}
+          draggable="false"
+        />
+      </div>
     ))}
 
     <span class="hero-badge">📚 책을 모으는 새로운 방법</span>
@@ -401,6 +418,10 @@ const heroFloaters = [
     text-align: center;
     padding: 64px 0 72px;
     overflow: hidden;
+    /* 자체 stacking context 만들어서 floater(z-index: -1)가 hero 밖으로 안 나가게 */
+    isolation: isolate;
+    /* 8개 캐릭터가 떠오를 충분한 수직 여유 확보 */
+    min-height: 640px;
   }
   .hero::before {
     /* 부드러운 브릭 글로우 — 배경에 살짝 따뜻한 분위기 */
@@ -420,19 +441,60 @@ const heroFloaters = [
     pointer-events: none;
   }
 
-  .hero-floater {
+  /* wrap = 떠오르는 동작 (translateY + 좌우 sway + 양 끝 fade).
+     img  = 빙글빙글 회전 (linear spin, 캐릭터마다 다른 속도).
+     transform 이 부모/자식으로 분리되어 두 애니메이션이 충돌 안 함. */
+  .hero-floater-wrap {
     position: absolute;
-    object-fit: contain;
-    animation: floater 6s ease-in-out infinite;
-    opacity: 0.85;
+    bottom: -120px;
     pointer-events: none;
-    user-select: none;
+    z-index: -1;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation-name: float-up;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
-  @keyframes floater {
-    0%, 100% { transform: translateY(0) rotate(-4deg); }
-    50% { transform: translateY(-14px) rotate(4deg); }
+  .hero-floater {
+    display: block;
+    object-fit: contain;
+    user-select: none;
+    will-change: transform;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  @keyframes float-up {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    8% {
+      opacity: 0.55;
+    }
+    25% {
+      transform: translateY(calc(var(--travel) * -0.25)) translateX(10px);
+    }
+    50% {
+      transform: translateY(calc(var(--travel) * -0.5)) translateX(-10px);
+    }
+    75% {
+      transform: translateY(calc(var(--travel) * -0.75)) translateX(10px);
+    }
+    92% {
+      opacity: 0.55;
+    }
+    100% {
+      transform: translateY(calc(var(--travel) * -1)) translateX(0);
+      opacity: 0;
+    }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
   }
   @media (prefers-reduced-motion: reduce) {
+    .hero-floater-wrap { animation: none; opacity: 0; }
     .hero-floater { animation: none; }
   }
 
@@ -1071,9 +1133,9 @@ const heroFloaters = [
       padding: 36px 0 56px;
     }
     .hero-floater {
-      width: 44px !important;
-      height: 44px !important;
-      opacity: 0.6;
+      /* 모바일에선 일괄 작게. opacity 는 animation 이 제어하므로 override 하지 않음. */
+      width: 40px !important;
+      height: 40px !important;
     }
     .hero-title {
       font-size: 36px;
