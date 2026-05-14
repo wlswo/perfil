@@ -24,23 +24,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/png" href={`${base}/perfil_mascot.png`} />
-    <link rel="apple-touch-icon" href={`${base}/perfil_mascot.png`} />
+    <link rel="icon" type="image/png" href={`${base}/mascot.png`} />
+    <link rel="apple-touch-icon" href={`${base}/mascot.png`} />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+    />
     <title>{title}</title>
   </head>
   <body>
     <header class="site-header">
-      <a href={`${base}/`} class="logo">
-        <img
-          src={`${base}/characters/essay_icon.webp`}
-          alt=""
-          class="logo-character"
-          width="32"
-          height="32"
-          aria-hidden="true"
-        />
-        <span class="logo-text">Per<span class="accent">Fil</span></span>
-      </a>
+      <div class="header-inner">
+        <a href={`${base}/`} class="logo">
+          <img
+            src={`${base}/mascot.png`}
+            alt=""
+            class="logo-character"
+            width="32"
+            height="32"
+            aria-hidden="true"
+          />
+          <span class="logo-text">perfil</span>
+        </a>
+      </div>
     </header>
 
     <main>
@@ -51,13 +59,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="footer-inner">
         <a href={`${base}/`} class="footer-brand">
           <img
-            src={`${base}/characters/essay_icon.webp`}
+            src={`${base}/mascot.png`}
             alt=""
             width="28"
             height="28"
             aria-hidden="true"
           />
-          <span>Per<span class="accent">Fil</span></span>
+          <span>perfil</span>
         </a>
 
         <nav class="footer-links" aria-label="법적 고지 및 사이트 링크">
@@ -67,16 +75,33 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </nav>
 
         <div class="footer-tagline">읽은 책을 마음에 담아두는, 나만의 독서 컬렉션 앱.</div>
-        <div class="copyright">© 2026 퍼필 (PerFil). All rights reserved.</div>
+        <div class="copyright">© 2026 퍼필 (perfil). All rights reserved.</div>
       </div>
     </footer>
 
     <style is:global>
       :root {
-        --paper: #f4efe1;
-        --paper-dim: #e9ddc7;
-        --ink: #3e3a37;
-        --accent: #b2422d;
+        /* 토스 스타일 토큰 — perfil-frontend/src/styles/tokens.ts 와 일치 */
+        --brand-50: #fff4ed;
+        --brand-100: #ffe4d2;
+        --brand-200: #ffc9a8;
+        --brand-400: #ff8c4b;
+        --brand-500: #ff6b2c; /* primary */
+        --brand-600: #e5521a;
+        --brand-700: #b2422d;
+
+        --gray-0: #ffffff;
+        --gray-50: #f9fafb;
+        --gray-100: #f2f4f6;
+        --gray-200: #e5e8eb;
+        --gray-400: #b0b8c1;
+        --gray-600: #4e5968;
+        --gray-900: #191f28;
+
+        --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.06);
+        --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.08);
+        --shadow-card-lg: 0 20px 60px rgba(25, 31, 40, 0.10);
       }
 
       * {
@@ -90,9 +115,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       }
 
       body {
-        background-color: var(--paper);
-        color: var(--ink);
+        background-color: var(--gray-0);
+        color: var(--gray-900);
         font-family:
+          'Pretendard Variable',
           'Pretendard',
           -apple-system,
           BlinkMacSystemFont,
@@ -101,7 +127,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           system-ui,
           sans-serif;
         font-size: 16px;
-        line-height: 1.7;
+        line-height: 1.6;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -115,30 +141,42 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         transition: color 0.15s ease;
       }
       a:hover {
-        color: var(--accent);
+        color: var(--brand-500);
       }
 
       h1,
       h2,
       h3,
       h4 {
-        font-weight: 700;
-        line-height: 1.3;
-        letter-spacing: -0.5px;
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.04em;
+        color: var(--gray-900);
       }
 
-      /* ─── 사이트 헤더 ─── */
+      /* ─── 사이트 헤더 (sticky, 흰 배경) ─── */
       .site-header {
-        padding: 18px 32px;
-        border-bottom: 1px solid rgba(62, 58, 55, 0.15);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: saturate(180%) blur(12px);
+        -webkit-backdrop-filter: saturate(180%) blur(12px);
+        border-bottom: 1px solid var(--gray-100);
+      }
+      .header-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 14px 24px;
       }
       .site-header .logo {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        font-size: 22px;
+        gap: 8px;
+        font-size: 19px;
         font-weight: 800;
-        letter-spacing: -0.5px;
+        letter-spacing: -0.04em;
+        color: var(--gray-900);
       }
       .site-header .logo-character {
         width: 32px;
@@ -146,22 +184,29 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         object-fit: contain;
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      .site-header .logo:hover .logo-character {
-        transform: rotate(-12deg) scale(1.12);
+      .site-header .logo:hover {
+        color: var(--gray-900);
       }
-      .site-header .logo .accent {
-        color: var(--accent);
+      .site-header .logo:hover .logo-character {
+        transform: rotate(-8deg) scale(1.08);
+      }
+      .site-header .logo-text {
+        background: linear-gradient(135deg, var(--gray-900) 0%, var(--brand-600) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       /* ─── 메인 영역 ─── */
       main {
         flex: 1;
         width: 100%;
-        max-width: 760px;
+        max-width: 1080px;
         margin: 0 auto;
-        padding: 56px 24px 80px;
+        padding: 40px 24px 80px;
       }
 
+      /* 정책/약관 페이지 텍스트 스타일 (markdown 페이지용) */
       main h1 {
         font-size: 32px;
         margin-bottom: 12px;
@@ -188,13 +233,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       }
       main li {
         margin-bottom: 4px;
+        color: var(--gray-600);
       }
       main strong {
         font-weight: 700;
+        color: var(--gray-900);
       }
       main hr {
         border: none;
-        border-top: 1px solid rgba(62, 58, 55, 0.2);
+        border-top: 1px solid var(--gray-200);
         margin: 24px 0;
       }
       main table {
@@ -204,25 +251,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       }
       main table th,
       main table td {
-        border: 1px solid rgba(62, 58, 55, 0.2);
+        border: 1px solid var(--gray-200);
         padding: 10px 12px;
         text-align: left;
         vertical-align: top;
       }
       main table th {
-        background: rgba(62, 58, 55, 0.05);
+        background: var(--gray-50);
         font-weight: 700;
       }
 
       /* ─── 사이트 푸터 ─── */
       .site-footer {
-        padding: 56px 24px 48px;
-        border-top: 1px solid rgba(62, 58, 55, 0.15);
-        background: rgba(62, 58, 55, 0.04);
         margin-top: 80px;
+        padding: 56px 24px 48px;
+        background: var(--gray-50);
+        border-top: 1px solid var(--gray-100);
       }
       .footer-inner {
-        max-width: 760px;
+        max-width: 1080px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -233,58 +280,62 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       .footer-brand {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        font-size: 22px;
+        gap: 8px;
+        font-size: 18px;
         font-weight: 800;
-        letter-spacing: -0.5px;
-        color: var(--ink);
+        letter-spacing: -0.04em;
+        color: var(--gray-900);
         margin-bottom: 4px;
       }
       .footer-brand img {
         object-fit: contain;
       }
-      .footer-brand .accent {
-        color: var(--accent);
+      .footer-brand span {
+        background: linear-gradient(135deg, var(--gray-900) 0%, var(--brand-600) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       .footer-links {
         display: flex;
-        gap: 22px;
+        gap: 8px;
         flex-wrap: wrap;
         justify-content: center;
       }
       .footer-links a {
         font-size: 14px;
         font-weight: 600;
-        padding: 6px 4px;
-        border-bottom: 1px solid transparent;
+        color: var(--gray-600);
+        padding: 8px 14px;
+        border-radius: 999px;
         transition:
           color 0.18s ease,
-          border-color 0.18s ease;
+          background-color 0.18s ease;
       }
       .footer-links a:hover {
-        color: var(--accent);
-        border-bottom-color: var(--accent);
+        color: var(--brand-600);
+        background: var(--brand-50);
       }
       .footer-tagline {
         font-size: 14px;
-        opacity: 0.6;
+        color: var(--gray-600);
         line-height: 1.6;
         max-width: 360px;
         margin-top: 6px;
       }
       .copyright {
         font-size: 12px;
-        opacity: 0.5;
+        color: var(--gray-400);
         letter-spacing: 0.3px;
         margin-top: 4px;
       }
 
       @media (max-width: 600px) {
-        .site-header {
-          padding: 18px 20px;
+        .header-inner {
+          padding: 12px 20px;
         }
         main {
-          padding: 36px 20px 60px;
+          padding: 28px 20px 60px;
         }
         main h1 {
           font-size: 26px;
