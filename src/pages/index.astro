@@ -190,12 +190,18 @@ const heroFloaters = [
         </svg>
         App Store에서 받기
       </a>
-      <span class="cta cta-secondary" aria-disabled="true" aria-label="Google Play 출시 예정">
+      <a
+        href="https://play.google.com/store/apps/details?id=com.wlswo.perfil"
+        class="cta cta-secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Google Play에서 다운로드"
+      >
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
           <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.039 12l2.66-2.491zm-13.834-9L16.801 7.84l-2.302 2.303L5.864.16z" />
         </svg>
-        Google Play 곧 출시
-      </span>
+        Google Play에서 받기
+      </a>
     </div>
   </section>
 
@@ -461,9 +467,15 @@ const heroFloaters = [
     box-shadow: 0 12px 28px rgba(255, 107, 44, 0.38);
   }
   .cta-secondary {
-    background: var(--gray-100);
-    color: var(--gray-400) !important;
-    cursor: default;
+    background: var(--gray-900, #1a1a1a);
+    color: #fff !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
+  .cta-secondary:hover {
+    background: #000;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
   }
 
   /* ──────────── Friends marquee ──────────── */
