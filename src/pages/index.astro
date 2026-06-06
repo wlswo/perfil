@@ -5,39 +5,44 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const showcases = [
   {
+    id: 'rating',
+    eyebrow: 'RECORD',
+    title: '한 줄로 남기는\n오늘의 독서',
+    description:
+      '오늘 읽은 페이지를 한 줄로 입력하면 진행률과 누적 통계가 자동으로 계산돼요. 마음에 닿은 구절은 하이라이트로, 짧은 감상은 메모와 별점으로. 가볍지만 진심이 담기는 기록 방식입니다.',
+    image: '/screens/01-home.png',
+  },
+  {
     id: 'search',
     eyebrow: 'SEARCH',
     title: '원하는 책을\n바로 검색해서 담기',
     description:
-      'ISBN 데이터베이스에서 제목, 저자, 출판사로 검색해 내 책장에 담을 수 있어요. 직접 입력하지 않아도 표지와 정보가 자동으로 채워집니다.',
+      '알라딘 도서 데이터로 제목, 저자, 출판사를 검색해 내 책장에 담을 수 있어요. 직접 입력하지 않아도 표지와 정보가 자동으로 채워지고, 읽는 중·다 읽음·위시리스트로 분류해 정리할 수 있어요.',
+    image: '/screens/06-search.png',
   },
   {
-    id: 'ticket',
-    eyebrow: 'RECEIPT',
-    title: '완독은 곧\n한 장의 영수증',
+    id: 'feed',
+    eyebrow: 'FEED',
+    title: '최신 책 소식과\n도서 행사를 한눈에',
     description:
-      '책을 끝까지 읽으면 그 순간을 기념할 영수증이 발급돼요. 별점, 메모, 읽은 기간이 함께 새겨집니다.',
-  },
-  {
-    id: 'rating',
-    eyebrow: 'RATING',
-    title: '내 마음을\n단정하게 남기는 곳',
-    description:
-      '별점은 눈금으로, 감상은 짧은 메모로. 가볍지만 진심이 담기는 기록 방식입니다.',
-  },
-  {
-    id: 'card',
-    eyebrow: 'SHARE',
-    title: '한 장의 카드로\n친구들과 공유',
-    description:
-      '내가 읽은 책을 한 장의 독서 카드로 만들어 갤러리에 저장하고 친구들과 공유할 수 있어요.',
+      '신간·추천 도서와 도서전 같은 행사 소식을 피드에서 받아보세요. 다른 독자들과 일상·책 이야기를 나누고, 좋은 책과 즐길 거리를 놓치지 않을 수 있어요.',
+    image: '/screens/04-feed.png',
   },
   {
     id: 'dex',
     eyebrow: 'COLLECT',
     title: '책을 읽고\n캐릭터를 모아요',
     description:
-      '책을 읽고 조건을 채우면 새로운 캐릭터가 도감에 해금돼요. 가장 마음에 드는 친구는 대표 캐릭터로 설정할 수 있어요.',
+      '책을 읽고 조건을 채우면 새로운 캐릭터가 도감에 해금돼요. 50종이 넘는 캐릭터 중 가장 마음에 드는 친구는 대표 캐릭터로 설정할 수 있어요.',
+    image: '/screens/05-dex.png',
+  },
+  {
+    id: 'card',
+    eyebrow: 'SHARE',
+    title: '한 달의 독서를\n한 장의 카드로',
+    description:
+      '완독한 책, 읽은 날, 메모를 담은 월간 독서 카드를 만들어 갤러리에 저장하고 친구들과 공유할 수 있어요. 이번 달 목표도 함께 트래킹해보세요.',
+    image: '/screens/03-booklog.png',
   },
 ];
 
@@ -128,8 +133,8 @@ const heroFloaters = [
 ---
 
 <Layout
-  title="퍼필 — 나만의 독서 컬렉션"
-  description="읽은 책이 차곡차곡 쌓이는 따뜻한 독서 기록 앱"
+  title="퍼필 — 오늘도 한 페이지"
+  description="오늘도 한 페이지, 퍼필. 읽은 책을 기록하고 한 달의 독서를 한눈에 정리하는 가벼운 독서 기록 앱."
 >
   <section class="hero">
     {heroFloaters.map((f) => (
@@ -168,7 +173,7 @@ const heroFloaters = [
       </h1>
     </div>
     <p class="hero-subtitle">
-      한 권 한 권 기록하고, 영수증을 쌓고, 캐릭터를 모아보세요.<br />
+      오늘 읽은 한 페이지를 기록하고, 한 달의 독서를 한눈에 정리하세요.<br />
       독서가 더 즐거워지는 가장 가벼운 방법.
     </p>
 
@@ -207,7 +212,7 @@ const heroFloaters = [
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track marquee-track--left">
         {[...friendsRowA, ...friendsRowA].map((f) => (
-          <div class="friend">
+          <div class="friend" data-name={f.label}>
             <img
               src={`${base}/characters/${f.file}`}
               alt=""
@@ -223,7 +228,7 @@ const heroFloaters = [
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track marquee-track--right">
         {[...friendsRowB, ...friendsRowB].map((f) => (
-          <div class="friend">
+          <div class="friend" data-name={f.label}>
             <img
               src={`${base}/characters/${f.file}`}
               alt=""
@@ -241,134 +246,9 @@ const heroFloaters = [
     {showcases.map((s, idx) => (
       <article class={`showcase reveal ${idx % 2 === 1 ? 'showcase--reverse' : ''}`}>
         <div class="showcase-mockup">
-          {s.id === 'search' && (
-            <div class="phone-frame">
-              <div class="phone-screen">
-                <div class="mock-app-bar">
-                  <span class="mock-title">검색</span>
-                </div>
-                <div class="mock-search-input">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
-                  </svg>
-                  <span>데미안</span>
-                </div>
-                <div class="mock-book-row">
-                  <div class="mock-cover" style="background:linear-gradient(135deg,#FFD0A8,#FF8C4B);"></div>
-                  <div class="mock-meta">
-                    <strong>데미안</strong>
-                    <span>헤르만 헤세</span>
-                    <div class="mock-rating">★ 4.6 · 12,304</div>
-                  </div>
-                  <button class="mock-add">+</button>
-                </div>
-                <div class="mock-book-row">
-                  <div class="mock-cover" style="background:linear-gradient(135deg,#E5E8EB,#B0B8C1);"></div>
-                  <div class="mock-meta">
-                    <strong>달과 6펜스</strong>
-                    <span>서머싯 몸</span>
-                    <div class="mock-rating">★ 4.4 · 5,820</div>
-                  </div>
-                  <button class="mock-add">+</button>
-                </div>
-                <div class="mock-book-row">
-                  <div class="mock-cover" style="background:linear-gradient(135deg,#FFF4ED,#FFC9A8);"></div>
-                  <div class="mock-meta">
-                    <strong>오만과 편견</strong>
-                    <span>제인 오스틴</span>
-                    <div class="mock-rating">★ 4.7 · 9,140</div>
-                  </div>
-                  <button class="mock-add">+</button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {s.id === 'ticket' && (
-            <div class="phone-frame">
-              <div class="phone-screen phone-screen--center">
-                <div class="mock-receipt">
-                  <div class="mock-receipt-head">
-                    <span class="mock-receipt-brand">PERFIL</span>
-                    <span class="mock-receipt-no">NO. 0023</span>
-                  </div>
-                  <div class="mock-receipt-divider"></div>
-                  <div class="mock-receipt-title">데미안</div>
-                  <div class="mock-receipt-author">헤르만 헤세</div>
-                  <div class="mock-receipt-stars">
-                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                  </div>
-                  <div class="mock-receipt-divider mock-receipt-divider--dashed"></div>
-                  <div class="mock-receipt-row"><span>읽은 기간</span><span>14일</span></div>
-                  <div class="mock-receipt-row"><span>완독일</span><span>2026.05.10</span></div>
-                  <div class="mock-receipt-divider"></div>
-                  <div class="mock-receipt-foot">THANK YOU FOR READING</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {s.id === 'rating' && (
-            <div class="phone-frame">
-              <div class="phone-screen">
-                <div class="mock-app-bar"><span class="mock-back">‹</span><span class="mock-title">책 상세</span></div>
-                <div class="mock-detail-cover" style="background:linear-gradient(135deg,#FFD0A8,#FF8C4B);"></div>
-                <div class="mock-detail-name">데미안</div>
-                <div class="mock-detail-author">헤르만 헤세</div>
-                <div class="mock-stars-row">
-                  <span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="on">★</span><span class="half">★</span>
-                </div>
-                <div class="mock-memo-card">
-                  <div class="mock-memo-label">메모</div>
-                  <div class="mock-memo-text">데미안과 싱클레어의 대화는 늘 마음을 흔든다.</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {s.id === 'card' && (
-            <div class="phone-frame">
-              <div class="phone-screen phone-screen--center">
-                <div class="mock-share-card">
-                  <div class="mock-share-cover" style="background:linear-gradient(135deg,#FFD0A8,#FF8C4B);"></div>
-                  <div class="mock-share-quote">"새는 알을 깨고 나온다."</div>
-                  <div class="mock-share-meta">
-                    <div>
-                      <div class="mock-share-title">데미안</div>
-                      <div class="mock-share-author">헤르만 헤세</div>
-                    </div>
-                    <div class="mock-share-rate">★ 4.5</div>
-                  </div>
-                  <div class="mock-share-brand">perfil</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {s.id === 'dex' && (
-            <div class="phone-frame">
-              <div class="phone-screen">
-                <div class="mock-app-bar"><span class="mock-title">캐릭터 도감</span></div>
-                <div class="mock-progress">
-                  <div class="mock-progress-row">
-                    <span class="mock-progress-num">12<span> / {TOTAL}</span></span>
-                    <span class="mock-progress-pct">21%</span>
-                  </div>
-                  <div class="mock-progress-track"><div class="mock-progress-fill" style="width:21%;"></div></div>
-                </div>
-                <div class="mock-dex-grid">
-                  <div class="mock-dex-cell"><img src={`${base}/characters/bookfox.png`} alt="" /></div>
-                  <div class="mock-dex-cell"><img src={`${base}/characters/starfish.png`} alt="" /></div>
-                  <div class="mock-dex-cell"><img src={`${base}/characters/sprout.png`} alt="" /></div>
-                  <div class="mock-dex-cell mock-dex-cell--lock"><img src={`${base}/characters/owl.png`} alt="" /></div>
-                  <div class="mock-dex-cell"><img src={`${base}/characters/whale.png`} alt="" /></div>
-                  <div class="mock-dex-cell mock-dex-cell--lock"><img src={`${base}/characters/rabbit.png`} alt="" /></div>
-                  <div class="mock-dex-cell mock-dex-cell--lock"><img src={`${base}/characters/penguin.png`} alt="" /></div>
-                  <div class="mock-dex-cell mock-dex-cell--lock"><img src={`${base}/characters/spellcat.png`} alt="" /></div>
-                </div>
-              </div>
-            </div>
-          )}
+          <div class="phone-frame">
+            <img class="phone-shot" src={`${base}${s.image}`} alt={`퍼필 ${s.eyebrow} 화면`} loading="lazy" />
+          </div>
         </div>
 
         <div class="showcase-text">
@@ -380,22 +260,6 @@ const heroFloaters = [
     ))}
   </section>
 
-  <section class="cta-section reveal">
-    <a
-      href="https://apps.apple.com/kr/app/%ED%8D%BC%ED%95%84-%EB%82%98%EB%A7%8C%EC%9D%98-%EB%8F%85%EC%84%9C-%EA%B8%B0%EB%A1%9D/id6761537232"
-      class="cta-banner-link"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="App Store에서 perfil 받기 — 지금 바로, 나만의 독서 모험을 시작하세요"
-    >
-      <img
-        src={`${base}/cta-banner.png`}
-        alt="지금 바로, 나만의 독서 모험을 시작하세요"
-        class="cta-banner-img"
-        loading="lazy"
-      />
-    </a>
-  </section>
 </Layout>
 
 <script>
@@ -415,7 +279,8 @@ const heroFloaters = [
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+      // 하단 -45% → 트리거 라인이 화면 높이의 약 55%(중앙 부근). 요소 윗부분이 중앙쯤 왔을 때 등장.
+      { threshold: 0, rootMargin: '0px 0px -45% 0px' },
     );
     els.forEach((el) => io.observe(el));
   }
@@ -686,6 +551,7 @@ const heroFloaters = [
   }
 
   .friend {
+    position: relative;
     flex-shrink: 0;
     width: 96px;
     height: 96px;
@@ -695,15 +561,38 @@ const heroFloaters = [
     background: #fff;
     border-radius: 20px;
     box-shadow: var(--shadow-1);
+    overflow: hidden;
   }
   .friend img {
     width: 76px;
     height: 76px;
     object-fit: contain;
-    /* 베일 효과 — 캐릭터 디자인은 추후 공개. 실루엣만 보이도록. */
-    filter: blur(8px) grayscale(0.5);
-    opacity: 0.7;
     pointer-events: none;
+  }
+  /* 마우스를 올리면 해당 줄의 마퀴 정지 */
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  /* 캐릭터 위에 올리면 이름 툴팁(카드 하단에서 슬라이드 업) */
+  .friend::after {
+    content: attr(data-name);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    color: #fff;
+    background: rgba(20, 20, 20, 0.72);
+    transform: translateY(100%);
+    transition: transform 0.18s ease;
+    pointer-events: none;
+  }
+  .friend:hover::after {
+    transform: translateY(0);
   }
 
   /* ──────────── Showcase ──────────── */
@@ -748,11 +637,17 @@ const heroFloaters = [
   /* ──────────── Phone frame (clean toss-style) ──────────── */
   .phone-frame {
     width: 280px;
-    aspect-ratio: 9 / 17;
     background: var(--gray-900);
     border-radius: 36px;
     padding: 8px;
     box-shadow: var(--shadow-card-lg);
+  }
+  /* 실제 앱 스크린샷 — 원본 비율 그대로, 화면 모서리 둥글게 클립. */
+  .phone-shot {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 28px;
   }
   .phone-screen {
     width: 100%;
@@ -851,69 +746,91 @@ const heroFloaters = [
     flex-shrink: 0;
   }
 
-  /* ──── Receipt mock ──── */
-  .mock-receipt {
-    width: 90%;
-    background: #fff;
-    border-radius: 12px;
-    padding: 18px 16px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    font-family: 'Courier New', 'Menlo', monospace;
-    color: var(--gray-900);
-  }
-  .mock-receipt-head {
+  /* ──── Feed mock ──── */
+  .mock-feed-post {
+    background: var(--gray-50);
+    border-radius: 14px;
+    padding: 12px 14px;
     display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
+    flex-direction: column;
+    gap: 8px;
   }
-  .mock-receipt-brand {
-    font-weight: 800;
-    color: var(--brand-500);
+  .mock-feed-post--ghost {
+    opacity: 0.6;
   }
-  .mock-receipt-no { color: var(--gray-600); }
-  .mock-receipt-divider {
-    border-top: 1px solid var(--gray-900);
-    margin: 10px -16px;
-  }
-  .mock-receipt-divider--dashed {
-    border-top: 1px dashed var(--gray-400);
-  }
-  .mock-receipt-title {
-    font-size: 18px;
-    font-weight: 800;
-    text-align: center;
-    margin-top: 4px;
-    font-family: inherit;
-  }
-  .mock-receipt-author {
-    font-size: 10px;
-    text-align: center;
-    color: var(--gray-600);
-    margin-top: 2px;
-  }
-  .mock-receipt-stars {
-    text-align: center;
-    color: var(--brand-500);
-    font-size: 16px;
-    letter-spacing: 3px;
-    margin: 8px 0 4px;
-  }
-  .mock-receipt-row {
+  .mock-feed-head {
     display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    margin: 4px 0;
-    color: var(--gray-600);
+    align-items: center;
+    gap: 8px;
   }
-  .mock-receipt-row span:last-child { color: var(--gray-900); font-weight: 700; }
-  .mock-receipt-foot {
-    text-align: center;
-    font-size: 9px;
-    letter-spacing: 0.2em;
+  .mock-feed-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .mock-feed-user {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .mock-feed-user strong {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .mock-feed-user span {
+    font-size: 10px;
     color: var(--gray-400);
-    margin-top: 4px;
+  }
+  .mock-feed-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .mock-feed-text {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--gray-600);
+  }
+  .mock-feed-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 8px 10px;
+    box-shadow: var(--shadow-1);
+  }
+  .mock-feed-tag-cover {
+    width: 26px;
+    height: 36px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10);
+  }
+  .mock-feed-tag-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .mock-feed-tag-meta strong {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .mock-feed-tag-meta span {
+    font-size: 10px;
+    color: var(--gray-600);
+  }
+  .mock-feed-actions {
+    display: flex;
+    gap: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-400);
+    margin-top: 2px;
   }
 
   /* ──── Rating mock ──── */

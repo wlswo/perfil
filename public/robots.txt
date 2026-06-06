@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wlswo.me/perfil/sitemap-index.xml

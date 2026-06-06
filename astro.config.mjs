@@ -1,5 +1,7 @@
 import { defineConfig } from 'astro/config';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 //
 // 커스텀 도메인을 사용하므로:
@@ -9,4 +11,5 @@ export default defineConfig({
   site: 'https://wlswo.me',
   base: '/perfil',
   trailingSlash: 'ignore',
+  integrations: [sitemap()],
 });

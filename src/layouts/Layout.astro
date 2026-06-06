@@ -2,15 +2,35 @@
 interface Props {
   title?: string;
   description?: string;
+  image?: string; // OG/트위터 공유 이미지 (base 기준 경로). 기본값은 프로모 배너.
 }
 
 // .md 페이지는 frontmatter 로, .astro 페이지는 props 로 들어옴 — 둘 다 처리
 const fm = (Astro.props as any).frontmatter ?? Astro.props;
-const title: string = fm.title ?? '퍼필 — 나만의 독서 컬렉션';
+const title: string = fm.title ?? '퍼필 — 오늘도 한 페이지';
 const description: string =
-  fm.description ?? '읽은 책을 차곡차곡 모으는 따뜻한 독서 기록 앱';
+  fm.description ?? '오늘도 한 페이지, 퍼필. 읽은 책을 기록하고 한 달의 독서를 한눈에 정리하는 가벼운 독서 기록 앱.';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// 절대 URL (canonical / OG / Twitter / JSON-LD)
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL(`${base}/${(fm.image ?? 'cta-banner.png').replace(/^\//, '')}`, Astro.site).toString();
+
+// 구조화 데이터 — 앱 소개(SoftwareApplication).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: '퍼필',
+  alternateName: 'perfil',
+  description,
+  url: new URL(`${base}/`, Astro.site).toString(),
+  image: ogImage,
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'iOS',
+  inLanguage: 'ko',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+};
 ---
 
 <!doctype html>
@@ -20,10 +40,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#FF6B2C" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="퍼필" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" type="image/png" href={`${base}/favicon.png`} />
     <link rel="apple-touch-icon" href={`${base}/icon.png`} />
     <link
@@ -33,6 +62,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
     />
     <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <header class="site-header">
@@ -74,7 +104,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a href={`${base}/privacy`}>개인정보 처리방침</a>
         </nav>
 
-        <div class="footer-tagline">읽은 책을 마음에 담아두는, 나만의 독서 컬렉션 앱.</div>
+        <div class="footer-tagline">오늘도 한 페이지, 퍼필. 읽은 책을 기록하는 가벼운 독서 기록 앱.</div>
         <div class="copyright">© 2026 퍼필 (perfil). All rights reserved.</div>
       </div>
     </footer>
