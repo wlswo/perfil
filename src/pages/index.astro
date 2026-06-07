@@ -7,41 +7,41 @@ const showcases = [
   {
     id: 'rating',
     eyebrow: 'RECORD',
-    title: '한 줄로 남기는\n오늘의 독서',
+    title: '나의 <span class="hl">독서 기록</span>을 한눈에',
     description:
-      '오늘 읽은 페이지를 한 줄로 입력하면 진행률과 누적 통계가 자동으로 계산돼요. 마음에 닿은 구절은 하이라이트로, 짧은 감상은 메모와 별점으로. 가볍지만 진심이 담기는 기록 방식입니다.',
+      '오늘 읽은 페이지를 한 줄로 입력하면 진행률과 통계가 자동으로 정리돼요. 구절은 하이라이트, 감상은 메모·별점으로.',
     image: '/screens/01-home.png',
   },
   {
     id: 'search',
     eyebrow: 'SEARCH',
-    title: '원하는 책을\n바로 검색해서 담기',
+    title: '책을 <span class="hl">검색</span>해 바로 담기',
     description:
-      '알라딘 도서 데이터로 제목, 저자, 출판사를 검색해 내 책장에 담을 수 있어요. 직접 입력하지 않아도 표지와 정보가 자동으로 채워지고, 읽는 중·다 읽음·위시리스트로 분류해 정리할 수 있어요.',
+      '제목·저자로 검색하면 표지와 정보가 자동으로 채워져요. 읽는 중·완독·위시리스트로 분류해 정리할 수 있어요.',
     image: '/screens/06-search.png',
   },
   {
     id: 'feed',
     eyebrow: 'FEED',
-    title: '최신 책 소식과\n도서 행사를 한눈에',
+    title: '<span class="hl">책 소식</span>과 행사를 한눈에',
     description:
-      '신간·추천 도서와 도서전 같은 행사 소식을 피드에서 받아보세요. 다른 독자들과 일상·책 이야기를 나누고, 좋은 책과 즐길 거리를 놓치지 않을 수 있어요.',
+      '신간·추천 도서와 도서전 소식을 피드에서 받아보고, 다른 독자들과 책 이야기를 나눠보세요.',
     image: '/screens/04-feed.png',
   },
   {
     id: 'dex',
     eyebrow: 'COLLECT',
-    title: '책을 읽고\n캐릭터를 모아요',
+    title: '읽을수록 모이는 <span class="hl">캐릭터</span>',
     description:
-      '책을 읽고 조건을 채우면 새로운 캐릭터가 도감에 해금돼요. 50종이 넘는 캐릭터 중 가장 마음에 드는 친구는 대표 캐릭터로 설정할 수 있어요.',
+      '책을 읽고 조건을 채우면 새 캐릭터가 도감에 해금돼요. 50종이 넘는 친구 중 대표 캐릭터도 고를 수 있어요.',
     image: '/screens/05-dex.png',
   },
   {
     id: 'card',
     eyebrow: 'SHARE',
-    title: '한 달의 독서를\n한 장의 카드로',
+    title: '한 달의 독서를 <span class="hl">한 장의 카드</span>로',
     description:
-      '완독한 책, 읽은 날, 메모를 담은 월간 독서 카드를 만들어 갤러리에 저장하고 친구들과 공유할 수 있어요. 이번 달 목표도 함께 트래킹해보세요.',
+      '완독한 책과 메모를 담은 월간 독서 카드를 만들어 저장하고 공유해요. 이번 달 목표도 함께 트래킹할 수 있어요.',
     image: '/screens/03-booklog.png',
   },
 ];
@@ -105,8 +105,6 @@ const friends: { file: string; label: string }[] = [
   { file: 'skeleton.png', label: '뼛속독자' },
   { file: 'volcano.png', label: '뜨거운서평' },
 ];
-
-const TOTAL = friends.length;
 
 // 두 줄 marquee 분배
 const friendsRowA = friends.filter((_, i) => i % 2 === 0);
@@ -205,49 +203,6 @@ const heroFloaters = [
     </div>
   </section>
 
-  <section class="friends-section reveal">
-    <div class="friends-header">
-      <span class="section-eyebrow">CHARACTERS</span>
-      <h2 class="section-title">{TOTAL}명의 친구가<br />책장을 채워줘요</h2>
-      <p class="section-desc">
-        책을 읽으며 조건을 채우면 새로운 캐릭터가 한 명씩 도감에 등장해요.<br />
-        가장 좋아하는 친구는 대표 캐릭터로 설정할 수 있어요.
-      </p>
-    </div>
-
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track marquee-track--left">
-        {[...friendsRowA, ...friendsRowA].map((f) => (
-          <div class="friend" data-name={f.label}>
-            <img
-              src={`${base}/characters/${f.file}`}
-              alt=""
-              loading="lazy"
-              width="80"
-              height="80"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track marquee-track--right">
-        {[...friendsRowB, ...friendsRowB].map((f) => (
-          <div class="friend" data-name={f.label}>
-            <img
-              src={`${base}/characters/${f.file}`}
-              alt=""
-              loading="lazy"
-              width="80"
-              height="80"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <section class="showcase-section">
     {showcases.map((s, idx) => (
       <article class={`showcase reveal ${idx % 2 === 1 ? 'showcase--reverse' : ''}`}>
@@ -258,9 +213,31 @@ const heroFloaters = [
         </div>
 
         <div class="showcase-text">
-          <span class="section-eyebrow">{s.eyebrow}</span>
-          <h3 class="showcase-title">{s.title}</h3>
+          <h3 class="showcase-title" set:html={s.title}></h3>
           <p class="showcase-desc">{s.description}</p>
+
+          {s.id === 'dex' && (
+            <div class="collect-marquees">
+              <div class="marquee" aria-hidden="true">
+                <div class="marquee-track marquee-track--left">
+                  {[...friendsRowA, ...friendsRowA].map((f) => (
+                    <div class="friend" data-name={f.label}>
+                      <img src={`${base}/characters/${f.file}`} alt="" loading="lazy" width="80" height="80" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div class="marquee" aria-hidden="true">
+                <div class="marquee-track marquee-track--right">
+                  {[...friendsRowB, ...friendsRowB].map((f) => (
+                    <div class="friend" data-name={f.label}>
+                      <img src={`${base}/characters/${f.file}`} alt="" loading="lazy" width="80" height="80" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </article>
     ))}
@@ -478,18 +455,29 @@ const heroFloaters = [
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
   }
 
-  /* ──────────── Friends marquee ──────────── */
-  .friends-section {
-    margin: 60px 0 80px;
-    padding: 56px 0;
-    background: linear-gradient(180deg, var(--gray-50) 0%, #fff 100%);
-    border-radius: 32px;
-    /* main의 max-width 무시하지 않음 — 카드처럼 자연스럽게 */
+  /* ──────────── Friends marquee (COLLECT 텍스트 칸 안, 작게) ──────────── */
+  .collect-marquees {
+    margin-top: 24px;
   }
-  .friends-header {
-    text-align: center;
-    padding: 0 24px;
-    margin-bottom: 36px;
+  .collect-marquees .marquee + .marquee {
+    margin-top: 6px;
+  }
+  /* 텍스트 칸 폭에 맞춰 캐릭터를 작게 */
+  .collect-marquees .marquee-track {
+    gap: 10px;
+  }
+  .collect-marquees .friend {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+  }
+  .collect-marquees .friend img {
+    width: 40px;
+    height: 40px;
+  }
+  .collect-marquees .friend::after {
+    font-size: 9px;
+    padding: 3px 2px;
   }
 
   .section-eyebrow {
@@ -632,13 +620,19 @@ const heroFloaters = [
   }
   .showcase-text {
     padding: 0 8px;
+    min-width: 0; /* 그리드 칸이 자식(마퀴) min-content 때문에 폭발하지 않도록 — 마퀴는 칸 폭에 맞춰 잘림 */
   }
   .showcase-title {
     font-size: 36px;
     line-height: 1.25;
-    margin: 14px 0 18px;
+    margin: 0 0 18px;
     letter-spacing: -0.04em;
     white-space: pre-line;
+  }
+  /* 제목 내 임팩트 단어 강조 — 주황.
+     set:html 로 주입된 span 은 Astro 스코프 속성이 없어 :global 로 매칭해야 함. */
+  .showcase-title :global(.hl) {
+    color: var(--brand-500);
   }
   .showcase-desc {
     font-size: 17px;
@@ -1117,10 +1111,8 @@ const heroFloaters = [
     .cta-buttons {
       gap: 10px;
     }
-    .friends-section {
-      margin: 40px -8px 60px;
-      border-radius: 24px;
-      padding: 40px 0;
+    .collect-marquees {
+      margin-top: 32px;
     }
     .section-title { font-size: 26px; }
     .section-desc { font-size: 14px; }
