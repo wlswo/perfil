@@ -46,6 +46,30 @@ const showcases = [
   },
 ];
 
+// 자주 묻는 질문 — 가시 FAQ 섹션 + FAQPage 구조화데이터(AEO/리치결과)에 함께 사용.
+const faqs = [
+  {
+    q: '퍼필은 어떤 앱인가요?',
+    a: '퍼필(perfil)은 읽은 책을 기록하고 한 달의 독서를 한눈에 정리하는 독서 기록 앱이에요. 오늘 읽은 페이지, 완독·별점·메모를 남기면 진행률과 독서 통계가 자동으로 정리돼요.',
+  },
+  {
+    q: '무료로 쓸 수 있나요?',
+    a: '네, 퍼필은 무료예요. iOS는 App Store, 안드로이드는 Google Play에서 받을 수 있어요.',
+  },
+  {
+    q: '어떤 걸 기록할 수 있나요?',
+    a: '오늘 읽은 페이지 수, 완독 여부, 별점, 감상 메모와 하이라이트 구절을 기록할 수 있어요. 제목·저자로 책을 검색하면 표지와 정보가 자동으로 채워지고, 읽는 중·완독·위시리스트로 분류돼요.',
+  },
+  {
+    q: '독서 캐릭터 도감은 무엇인가요?',
+    a: '책을 읽고 조건을 채우면 새 캐릭터가 도감에 해금돼요. 56종이 넘는 친구를 모으고 대표 캐릭터도 고를 수 있어, 독서가 더 즐거운 습관이 돼요.',
+  },
+  {
+    q: '한 달의 독서를 공유할 수 있나요?',
+    a: '네, 완독한 책과 메모를 담은 월간 독서 카드를 만들어 저장하고 공유할 수 있어요. 이번 달 독서 목표도 함께 트래킹돼요.',
+  },
+];
+
 // 실제 도감 캐릭터 56종 — perfil-frontend/src/assets/dexCharacters.ts 와 동일.
 const friends: { file: string; label: string }[] = [
   { file: 'bookfox.png', label: '책중독여우' },
@@ -242,6 +266,31 @@ const heroFloaters = [
       </article>
     ))}
   </section>
+
+  <section class="faq-section reveal" aria-labelledby="faq-heading">
+    <h2 class="section-title" id="faq-heading">자주 묻는 질문</h2>
+    <div class="faq-list">
+      {faqs.map((f) => (
+        <details class="faq-item">
+          <summary class="faq-q">{f.q}</summary>
+          <p class="faq-a">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    })}
+  />
 
 </Layout>
 
@@ -1033,6 +1082,68 @@ const heroFloaters = [
     aspect-ratio: 16 / 6;
     object-fit: cover;
     object-position: center;
+  }
+
+  /* ──────────── FAQ ──────────── */
+  .faq-section {
+    margin: 100px auto 0;
+    max-width: 760px;
+  }
+  .faq-section .section-title {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-100);
+    border-radius: 16px;
+    padding: 4px 20px;
+    transition: border-color 0.18s ease, background-color 0.18s ease;
+  }
+  .faq-item[open] {
+    background: var(--gray-0);
+    border-color: var(--gray-200);
+    box-shadow: var(--shadow-2);
+  }
+  .faq-q {
+    list-style: none;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--gray-900);
+    letter-spacing: -0.02em;
+    padding: 16px 28px 16px 0;
+    position: relative;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-q::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--gray-400);
+    border-bottom: 2px solid var(--gray-400);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .faq-q::after {
+    transform: translateY(-30%) rotate(-135deg);
+  }
+  .faq-a {
+    margin: 0;
+    padding: 0 0 18px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--gray-600);
   }
 
   /* ──────────── Reveal animation ──────────── */
