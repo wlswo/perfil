@@ -7,28 +7,33 @@ interface Props {
 
 // .md 페이지는 frontmatter 로, .astro 페이지는 props 로 들어옴 — 둘 다 처리
 const fm = (Astro.props as any).frontmatter ?? Astro.props;
-const title: string = fm.title ?? '퍼필 — 오늘도 한 페이지';
+const title: string = fm.title ?? '퍼필 – 독서 기록 앱 · 오늘도 한 페이지';
 const description: string =
-  fm.description ?? '오늘도 한 페이지, 퍼필. 읽은 책을 기록하고 한 달의 독서를 한눈에 정리하는 가벼운 독서 기록 앱.';
+  fm.description ??
+  '퍼필은 읽은 책을 기록하고 한 달의 독서를 한눈에 정리하는 독서 기록 앱이에요. 오늘 읽은 페이지·완독·별점·메모를 남기고 독서 통계와 캐릭터 도감까지. iOS·안드로이드 무료.';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // 절대 URL (canonical / OG / Twitter / JSON-LD)
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const ogImage = new URL(`${base}/${(fm.image ?? 'cta-banner.png').replace(/^\//, '')}`, Astro.site).toString();
+const ogImage = new URL(`${base}/${(fm.image ?? 'screens/01-home.png').replace(/^\//, '')}`, Astro.site).toString();
 
 // 구조화 데이터 — 앱 소개(SoftwareApplication).
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: '퍼필',
-  alternateName: 'perfil',
+  alternateName: ['perfil', '퍼필 독서기록'],
   description,
   url: new URL(`${base}/`, Astro.site).toString(),
   image: ogImage,
+  screenshot: ['01-home.png', '02-bookshelf.png', '04-feed.png', '05-dex.png'].map((f) =>
+    new URL(`${base}/screens/${f}`, Astro.site).toString(),
+  ),
   applicationCategory: 'LifestyleApplication',
-  operatingSystem: 'iOS',
+  operatingSystem: 'iOS, Android',
   inLanguage: 'ko',
+  featureList: ['독서 기록', '독서 통계', '완독·별점·메모', '책 검색', '독서 캐릭터 도감', '월간 독서 카드'],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
 };
 ---
@@ -40,6 +45,10 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="독서 기록 앱, 독서 기록, 책 기록 앱, 독서 관리, 독서 통계, 완독, 독서 다이어리, 독서 트래커, 독후감 앱, 퍼필, perfil"
+    />
     <link rel="canonical" href={canonicalURL} />
     <meta name="theme-color" content="#FF6B2C" />
     <meta property="og:title" content={title} />
@@ -49,6 +58,7 @@ const jsonLd = {
     <meta property="og:site_name" content="퍼필" />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="퍼필 독서 기록 앱 화면" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
