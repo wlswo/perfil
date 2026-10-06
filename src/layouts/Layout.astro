@@ -15,7 +15,9 @@ const description: string =
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // 절대 URL (canonical / OG / Twitter / JSON-LD)
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+// GitHub Pages 는 끝 슬래시 없는 주소를 /…/ 로 301 시키므로 canonical 도 슬래시로 맞춘다
+// (메인은 pathname 이 '/perfil' 로 들어와 리다이렉트되는 주소를 canonical 로 내던 문제).
+const canonicalURL = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site).toString();
 const ogImage = new URL(`${base}/${(fm.image ?? 'screens/01-home.png').replace(/^\//, '')}`, Astro.site).toString();
 
 // 구조화 데이터 — 앱 소개(SoftwareApplication).
