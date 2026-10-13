@@ -10,39 +10,44 @@ const showcases = [
     title: '나의 <span class="hl">독서 기록</span>을 한눈에',
     description:
       '오늘 읽은 페이지를 한 줄로 입력하면 진행률과 통계가 자동으로 정리돼요. 구절은 하이라이트, 감상은 메모·별점으로.',
-    image: '/screens/01-home.png',
+    image: '/screens/01-home.webp',
+    alt: '퍼필 독서 기록 앱 홈 화면 - 오늘 읽은 페이지와 독서 진행률',
   },
   {
     id: 'search',
     eyebrow: 'SEARCH',
-    title: '책을 <span class="hl">검색</span>해 바로 담기',
+    title: '책을 <span class="hl">검색</span>해 바로 책 기록 시작',
     description:
       '제목·저자로 검색하면 표지와 정보가 자동으로 채워져요. 읽는 중·완독·위시리스트로 분류해 정리할 수 있어요.',
-    image: '/screens/06-search.png',
+    image: '/screens/06-search.webp',
+    alt: '퍼필 책 검색 화면 - 제목·저자로 책을 검색해 서재에 담기',
   },
   {
     id: 'feed',
     eyebrow: 'FEED',
-    title: '<span class="hl">책 소식</span>과 행사를 한눈에',
+    title: '신간·도서전 <span class="hl">책 소식</span>과 독자 피드',
     description:
       '신간·추천 도서와 도서전 소식을 피드에서 받아보고, 다른 독자들과 책 이야기를 나눠보세요.',
-    image: '/screens/04-feed.png',
+    image: '/screens/04-feed.webp',
+    alt: '퍼필 피드 화면 - 신간·도서전 소식과 독자 게시글',
   },
   {
     id: 'dex',
     eyebrow: 'COLLECT',
-    title: '읽을수록 모이는 <span class="hl">캐릭터</span>',
+    title: '읽을수록 모이는 <span class="hl">독서 캐릭터</span> 56종',
     description:
-      '책을 읽고 조건을 채우면 새 캐릭터가 도감에 해금돼요. 50종이 넘는 친구 중 대표 캐릭터도 고를 수 있어요.',
-    image: '/screens/05-dex.png',
+      '책을 읽고 조건을 채우면 새 캐릭터가 도감에 해금돼요. 56종의 친구 중 대표 캐릭터도 고를 수 있어요.',
+    image: '/screens/05-dex.webp',
+    alt: '퍼필 캐릭터 도감 화면 - 독서로 해금하는 캐릭터 56종',
   },
   {
     id: 'card',
     eyebrow: 'SHARE',
-    title: '한 달의 독서를 <span class="hl">한 장의 카드</span>로',
+    title: '한 달의 독서를 <span class="hl">월간 독서 카드</span>로',
     description:
       '완독한 책과 메모를 담은 월간 독서 카드를 만들어 저장하고 공유해요. 이번 달 목표도 함께 트래킹할 수 있어요.',
-    image: '/screens/03-booklog.png',
+    image: '/screens/03-booklog.webp',
+    alt: '퍼필 월간 독서 카드 화면 - 한 달 동안 완독한 책과 메모',
   },
 ];
 
@@ -50,7 +55,7 @@ const showcases = [
 const faqs = [
   {
     q: '퍼필은 어떤 앱인가요?',
-    a: '퍼필(perfil)은 읽은 책을 기록하고 한 달의 독서를 한눈에 정리하는 독서 기록 앱이에요. 오늘 읽은 페이지, 완독·별점·메모를 남기면 진행률과 독서 통계가 자동으로 정리돼요.',
+    a: '퍼필(perfil)은 iOS·안드로이드에서 무료로 쓰는 독서 기록 앱이에요. 읽은 책을 기록하고 한 달의 독서를 한눈에 정리할 수 있어요. 오늘 읽은 페이지, 완독·별점·메모를 남기면 진행률과 독서 통계가 자동으로 정리돼요.',
   },
   {
     q: '무료로 쓸 수 있나요?',
@@ -62,7 +67,7 @@ const faqs = [
   },
   {
     q: '독서 캐릭터 도감은 무엇인가요?',
-    a: '책을 읽고 조건을 채우면 새 캐릭터가 도감에 해금돼요. 56종이 넘는 친구를 모으고 대표 캐릭터도 고를 수 있어, 독서가 더 즐거운 습관이 돼요.',
+    a: '책을 읽고 조건을 채우면 새 캐릭터가 도감에 해금돼요. 56종의 친구를 모으고 대표 캐릭터도 고를 수 있어, 독서가 더 즐거운 습관이 돼요.',
   },
   {
     q: '한 달의 독서를 공유할 수 있나요?',
@@ -155,8 +160,8 @@ const heroFloaters = [
 ---
 
 <Layout
-  title="퍼필 — 오늘도 한 페이지"
-  description="오늘도 한 페이지, 퍼필. 읽은 책을 기록하고 한 달의 독서를 한눈에 정리하는 가벼운 독서 기록 앱."
+  title="퍼필 - 독서 기록 앱 | 읽은 책 기록·독서 관리를 한 곳에"
+  description="읽은 책을 검색해 담고 오늘 읽은 페이지·별점·메모를 남기면 독서 통계가 자동으로 정리돼요. 월간 독서 카드와 캐릭터 도감 56종까지, iOS·안드로이드 무료 책 기록 앱."
 >
   <section class="hero">
     {heroFloaters.map((f) => (
@@ -167,9 +172,10 @@ const heroFloaters = [
       >
         {/* 떠오르는 동작은 wrap 이, 빙글빙글 회전은 img 가 따로 — transform 충돌 방지 */}
         <img
-          src={`${base}/characters/${f.file}`}
+          src={`${base}/characters/${f.file.replace('.png', '.webp')}`}
           alt=""
           class="hero-floater"
+          decoding="async"
           width={f.size}
           height={f.size}
           style={`width:${f.size}px;height:${f.size}px;animation-duration:${f.spin}s;`}
@@ -181,15 +187,17 @@ const heroFloaters = [
     <div class="hero-title-wrap">
       <div class="hero-icon-glow">
         <img
-          src={`${base}/icon.png`}
+          src={`${base}/icon-256.webp`}
           alt=""
           class="hero-icon"
+          fetchpriority="high"
           width="124"
           height="124"
           aria-hidden="true"
         />
       </div>
       <h1 class="hero-title">
+        <span class="hero-eyebrow">독서 기록 앱 퍼필</span>
         읽은 책을 모아<br />
         <span class="hero-title-accent">나만의 컬렉션</span>으로
       </h1>
@@ -227,12 +235,13 @@ const heroFloaters = [
     </div>
   </section>
 
-  <section class="showcase-section">
+  <section class="showcase-section" aria-labelledby="features-heading">
+    <h2 class="section-title features-title" id="features-heading">퍼필로 하는 독서 기록·독서 관리</h2>
     {showcases.map((s, idx) => (
       <article class={`showcase reveal ${idx % 2 === 1 ? 'showcase--reverse' : ''}`}>
         <div class="showcase-mockup">
           <div class="phone-frame">
-            <img class="phone-shot" src={`${base}${s.image}`} alt={`퍼필 ${s.eyebrow} 화면`} loading="lazy" />
+            <img class="phone-shot" src={`${base}${s.image}`} alt={s.alt} width="792" height="1631" loading="lazy" decoding="async" />
           </div>
         </div>
 
@@ -246,7 +255,7 @@ const heroFloaters = [
                 <div class="marquee-track marquee-track--left">
                   {[...friendsRowA, ...friendsRowA].map((f) => (
                     <div class="friend" data-name={f.label}>
-                      <img src={`${base}/characters/${f.file}`} alt="" loading="lazy" width="80" height="80" />
+                      <img src={`${base}/characters/${f.file.replace('.png', '.webp')}`} alt="" loading="lazy" decoding="async" width="80" height="80" />
                     </div>
                   ))}
                 </div>
@@ -255,7 +264,7 @@ const heroFloaters = [
                 <div class="marquee-track marquee-track--right">
                   {[...friendsRowB, ...friendsRowB].map((f) => (
                     <div class="friend" data-name={f.label}>
-                      <img src={`${base}/characters/${f.file}`} alt="" loading="lazy" width="80" height="80" />
+                      <img src={`${base}/characters/${f.file.replace('.png', '.webp')}`} alt="" loading="lazy" decoding="async" width="80" height="80" />
                     </div>
                   ))}
                 </div>
@@ -443,6 +452,14 @@ const heroFloaters = [
     line-height: 1.15;
     letter-spacing: -0.04em;
     margin-bottom: 0;
+  }
+  .hero-eyebrow {
+    display: block;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--brand-600);
+    margin-bottom: 12px;
   }
   .hero-title-accent {
     background: linear-gradient(135deg, var(--brand-500) 0%, var(--brand-700) 100%);
@@ -650,6 +667,10 @@ const heroFloaters = [
     display: flex;
     flex-direction: column;
     gap: 120px;
+  }
+  .features-title {
+    text-align: center;
+    margin-bottom: -40px;
   }
   .showcase {
     display: grid;

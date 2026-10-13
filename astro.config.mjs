@@ -11,5 +11,6 @@ export default defineConfig({
   site: 'https://wlswo.me',
   base: '/perfil',
   trailingSlash: 'ignore',
-  integrations: [sitemap()],
+  // lastmod = 빌드(배포) 시각. push 때마다 갱신돼 크롤러에 변경 신호를 준다.
+  integrations: [sitemap({ lastmod: new Date() })],
 });
