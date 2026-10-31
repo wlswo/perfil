@@ -347,6 +347,16 @@ const jsonLd = {
         padding: 10px 12px;
         text-align: left;
         vertical-align: top;
+        /* 긴 주소(policies.google.com/privacy 등)가 칸을 넘지 않게 */
+        overflow-wrap: anywhere;
+      }
+      /* 칸이 많은 표(국외 이전 등)는 좁은 화면에서 옆으로 밀어 본다 */
+      @media (max-width: 640px) {
+        main table {
+          display: block;
+          overflow-x: auto;
+          font-size: 13px;
+        }
       }
       main table th {
         background: var(--gray-50);
